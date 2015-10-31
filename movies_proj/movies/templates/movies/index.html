@@ -2,17 +2,45 @@
 <html>
     <head>
         <title>Workshop's app</title>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     </head>
     
     <body>
         <h1>hello byte</h1>
         <a href="/add">New Movie Note</a>
         
-        <ul>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button id="btnSubmit">Submit</button>
+        </form>
+        
+        <ul id="movieList">
             {% for movie in movies %}
                 <li>{{ movie }}</li>
             {% endfor %}
         </ul>
+        
+        <script>
+            $.ajax({
+                url: "/api/v1/movies",
+            }).done(function(data) {
+                $('#movieList').empty();
+                $.each(data, function(index, movie){
+                    console.log(index);
+                    console.log(movie);
+                    $("#movieList").append("<li>" + movie.name + "</li>");
+                })
+            });
+            
+            $("#btnSubmit").on("click", function(e){
+                e.preventDefault();
+                console.log("got a fucking click")
+                //GET DATA FROM THE HTML FORM
+                //SEND THE DATA FO AJAX AS A POST
+                //WHEN AJAX IS DONE, WRITE THE DATA DO THE LIST
+            })
+        </script>
         
     </body>
 

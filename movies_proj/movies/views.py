@@ -7,8 +7,8 @@ from .forms import MovieForm
 
 class IndexView(View):
     def get(self, request):
-        movies = Movie.objects.all()
-        context = {"movies": movies}
+        movie_form = MovieForm()
+        context = {"form": movie_form.as_p()}
         return render(request, "movies/index.html", context)
 
 
