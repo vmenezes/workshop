@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Workshop's app</title>
+    </head>
+    
+    <body>
+        <h1>hello byte</h1>
+        <a href="/add">New Movie Note</a>
+        
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button>Submit</button>
+        </form>
+        
+    </body>
+
+</html>

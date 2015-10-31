@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Workshop's app</title>
+    </head>
+    
+    <body>
+        <h1>hello byte</h1>
+        <a href="/add">New Movie Note</a>
+        
+        <ul>
+            {% for movie in movies %}
+                <li>{{ movie }}</li>
+            {% endfor %}
+        </ul>
+        
+    </body>
+
+</html>
