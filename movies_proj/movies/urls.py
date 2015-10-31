@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from .views import IndexView, AddMovieView
+from movies import viewsets
+from rest_framework.routers import DefaultRouter
 
+
+router = DefaultRouter()
+router.register(r'movies', viewsets.MovieViewSet)
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^add/', AddMovieView.as_view(), name='addMovie'),
+    url(r'^api/v1/', include(router.urls)),
 ]
