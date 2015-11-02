@@ -9,7 +9,7 @@
         <h1>hello byte</h1>
         <a href="/add">New Movie Note</a>
         
-        <form method="POST">
+        <form id="frmAddMovie" method="POST">
             {% csrf_token %}
             {{ form }}
             <button id="btnSubmit">Submit</button>
@@ -27,18 +27,28 @@
             }).done(function(data) {
                 $('#movieList').empty();
                 $.each(data, function(index, movie){
-                    console.log(index);
-                    console.log(movie);
                     $("#movieList").append("<li>" + movie.name + "</li>");
                 })
+            }).fail(function(data){
+                alert("Something wrong is not right...");
+                console.log("FAIL!");
+                console.log(data);
             });
             
             $("#btnSubmit").on("click", function(e){
                 e.preventDefault();
-                console.log("got a fucking click")
-                //GET DATA FROM THE HTML FORM
-                //SEND THE DATA FO AJAX AS A POST
-                //WHEN AJAX IS DONE, WRITE THE DATA DO THE LIST
+                frmData = $("#frmAddMovie").serializeArray();
+                $.ajax({
+                    url: "/api/v1/movies/",
+                    method: "POST",
+                    data: frmData,
+                }).done(function(){
+                    $("#movieList").append("<li>" + frmData[1].value + "</li>");
+                }).fail(function(data){
+                    alert("Something wrong is not right...");
+                    console.log("FAIL!");
+                    console.log(data);
+                })
             })
         </script>
         
