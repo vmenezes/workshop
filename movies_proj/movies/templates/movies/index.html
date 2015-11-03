@@ -6,7 +6,7 @@
     </head>
     
     <body>
-        <h1>hello byte</h1>
+        <h1>hello {{ user }}</h1>
         <a href="/add">New Movie Note</a>
         
         <form id="frmAddMovie" method="POST">
@@ -38,6 +38,7 @@
             $("#btnSubmit").on("click", function(e){
                 e.preventDefault();
                 frmData = $("#frmAddMovie").serializeArray();
+                frmData.push({"name": "user", "value": "{{ user.id }}"})
                 $.ajax({
                     url: "/api/v1/movies/",
                     method: "POST",
